@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1028098768662",
+    "project_id": "hal-app-32853",
+    "storage_bucket": "hal-app-32853.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1028098768662:android:074ee9fc3b243c0a2b5a37",
+        "android_client_info": {
+          "package_name": "com.example.hal_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDv6vfIFMOmkT75YTetVsOi3KIWQLHL_aQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1028098768662:android:a5940bdff66878dc2b5a37",
+        "android_client_info": {
+          "package_name": "com.example.task_interview"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDv6vfIFMOmkT75YTetVsOi3KIWQLHL_aQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

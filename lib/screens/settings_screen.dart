@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../cubits/auth_cubit/auth_cubit.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -10,23 +9,19 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar( // ✅ AppBar لشكل رسمي للشاشة
-        title: const Text("Settings"),
-        centerTitle: true,
-        backgroundColor: Colors.deepPurple,
-        foregroundColor: Colors.white,
-      ),
       body: BlocBuilder<AuthCubit, AuthState>(
         builder: (context, state) {
           final user = FirebaseAuth.instance.currentUser;
 
-          final name = (state is UpdateUsernameSuccess)
-              ? state.newName
-              : user?.displayName ?? 'User';
+          final name =
+              (state is UpdateUsernameSuccess)
+                  ? state.newName
+                  : user?.displayName ?? 'User';
 
-          final photoUrl = (state is UProPicUpdateSuccessState && state.downloadUrl != null)
-              ? state.downloadUrl
-              : user?.photoURL;
+          final photoUrl =
+              (state is UProPicUpdateSuccessState && state.downloadUrl != null)
+                  ? state.downloadUrl
+                  : user?.photoURL;
 
           return ListView(
             padding: const EdgeInsets.all(16),
@@ -37,21 +32,31 @@ class SettingsScreen extends StatelessWidget {
                   children: [
                     CircleAvatar(
                       radius: 50,
-                      backgroundImage: photoUrl != null
-                          ? NetworkImage(photoUrl)
-                          : const AssetImage('assets/images/default_user.png')
-                              as ImageProvider,
+                      backgroundImage:
+                          photoUrl != null
+                              ? NetworkImage(photoUrl)
+                              : const AssetImage(
+                                    'assets/images/default_user.png',
+                                  )
+                                  as ImageProvider,
                     ),
                     Positioned(
                       child: InkWell(
-                        onTap: () => context.read<AuthCubit>().updateProfilePicture(context),
+                        onTap:
+                            () => context
+                                .read<AuthCubit>()
+                                .updateProfilePicture(context),
                         child: Container(
                           padding: const EdgeInsets.all(6),
                           decoration: const BoxDecoration(
                             shape: BoxShape.circle,
                             color: Colors.black54,
                           ),
-                          child: const Icon(Icons.camera_alt, size: 20, color: Colors.white),
+                          child: const Icon(
+                            Icons.camera_alt,
+                            size: 20,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     ),
@@ -63,13 +68,11 @@ class SettingsScreen extends StatelessWidget {
                 child: Text(
                   name,
                   style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
               const SizedBox(height: 24),
-
-              // Profile settings
               ListTile(
                 leading: const Icon(Icons.person),
                 title: const Text('Profile'),
@@ -77,19 +80,12 @@ class SettingsScreen extends StatelessWidget {
                 trailing: const Icon(Icons.edit),
                 onTap: () => _showEditNameDialog(context, name),
               ),
-
               const Divider(),
-
-              // Appearance (Future feature)
               ListTile(
                 leading: const Icon(Icons.color_lens),
                 title: const Text('Appearance'),
-                onTap: () {
-                  // يمكن لاحقًا إضافة تغيير الثيم (Dark/Light)
-                },
+                onTap: () {},
               ),
-
-              // Logout
               ListTile(
                 leading: const Icon(Icons.logout),
                 title: const Text('Log Out'),
@@ -107,46 +103,50 @@ class SettingsScreen extends StatelessWidget {
 
     showDialog(
       context: context,
-      builder: (ctx) => AlertDialog(
-        title: const Text('Edit Username'),
-        content: TextField(
-          controller: controller,
-          decoration: const InputDecoration(labelText: 'New Username'),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(ctx).pop(),
-            child: const Text('Cancel'),
+      builder:
+          (ctx) => AlertDialog(
+            title: const Text('Edit Username'),
+            content: TextField(
+              controller: controller,
+              decoration: const InputDecoration(labelText: 'New Username'),
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(ctx).pop(),
+                child: const Text('Cancel'),
+              ),
+              TextButton(
+                onPressed: () {
+                  context.read<AuthCubit>().updateUsername(
+                    controller.text.trim(),
+                  );
+                  Navigator.of(ctx).pop();
+                },
+                child: const Text('Save'),
+              ),
+            ],
           ),
-          TextButton(
-            onPressed: () {
-              context.read<AuthCubit>().updateUsername(controller.text.trim());
-              Navigator.of(ctx).pop();
-            },
-            child: const Text('Save'),
-          ),
-        ],
-      ),
     );
   }
 
   void _showLogoutConfirmation(BuildContext context) async {
     final confirm = await showDialog<bool>(
       context: context,
-      builder: (ctx) => AlertDialog(
-        title: const Text('Confirmation'),
-        content: const Text('Are you sure you want to log out?'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(ctx).pop(false),
-            child: const Text('Cancel'),
+      builder:
+          (ctx) => AlertDialog(
+            title: const Text('Confirmation'),
+            content: const Text('Are you sure you want to log out?'),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(ctx).pop(false),
+                child: const Text('Cancel'),
+              ),
+              TextButton(
+                onPressed: () => Navigator.of(ctx).pop(true),
+                child: const Text('Confirm'),
+              ),
+            ],
           ),
-          TextButton(
-            onPressed: () => Navigator.of(ctx).pop(true),
-            child: const Text('Confirm'),
-          ),
-        ],
-      ),
     );
 
     if (confirm == true) {

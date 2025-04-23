@@ -12,15 +12,8 @@ class NotificationsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar( // ✅ إضافة AppBar لتحسين تجربة المستخدم
-        title: const Text("Notifications"),
-        backgroundColor: Colors.deepPurple,
-        foregroundColor: Colors.white,
-        centerTitle: true,
-        elevation: 0,
-      ),
       body: notifications.isEmpty
-          ? const Center( // ✅ عرض رسالة في حال ما في إشعارات
+          ? const Center(
               child: Text(
                 "لا يوجد إشعارات حالياً",
                 style: TextStyle(fontSize: 18, color: Colors.grey),

@@ -43,12 +43,12 @@ class _RequestsScreenState extends State<RequestsScreen> {
               width: double.infinity,
               child: ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(vertical: 16.h),
+                  padding: EdgeInsets.symmetric(vertical: 12.h),
                   backgroundColor: ColorUtility.purble,
                   foregroundColor: Colors.white,
                 ),
                 icon: Icon(Icons.send),
-                label: Text('Submit'),
+                label: Text('Submit',style: TextStyle(fontSize: 16.sp),),
                 onPressed: _handleSubmit,
               ),
             ),

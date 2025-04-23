@@ -18,7 +18,6 @@ class _SignInScreenState extends State<SignInScreen> {
   late TextEditingController emailController;
   late TextEditingController passwordController;
   bool isPasswordVisible = false;
-  bool isConfirmPasswordVisible = false;
   @override
   void initState() {
     emailController = TextEditingController();
@@ -67,26 +66,18 @@ class _SignInScreenState extends State<SignInScreen> {
               controller: passwordController,
               hintText: '***********',
               labelText: 'Password',
-              obscureText: true,
+              obscureText: !isPasswordVisible,
               keyboardType: TextInputType.visiblePassword,
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter Your Password';
-                }
-                return null;
-              },
-                 suffix: IconButton(
-              onPressed: () {
-                setState(() {
-                  isConfirmPasswordVisible = !isConfirmPasswordVisible;
-                });
-              },
-              icon: Icon(
-                isConfirmPasswordVisible
-                    ? Icons.visibility
-                    : Icons.visibility_off,
-              ),)
-            
+              suffix: IconButton(
+                onPressed: () {
+                  setState(() {
+                    isPasswordVisible = !isPasswordVisible;
+                  });
+                },
+                icon: Icon(
+                  isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                ),
+              ),
             ),
           ],
         ),

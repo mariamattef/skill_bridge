@@ -30,33 +30,78 @@
 ## Getting Started
 
 1. Clone this repository:
+
    ```bash
    git clone https://github.com/your-username/skillbridge.git
    cd skillbridge
-   ```
+Install dependencies:
 
-2. Install dependencies:
-   ```bash
-   flutter pub get
-   ```
+bash
+Copy
+Edit
+flutter pub get
+Set up Firebase:
 
-3. Set up Firebase:
-   - Add your `google-services.json` (Android) and `GoogleService-Info.plist` (iOS)
-   - Ensure Firebase Auth and Storage are enabled
+Add your google-services.json (Android) and GoogleService-Info.plist (iOS)
 
-4. Run the app:
-   ```bash
-   flutter run
-   ```
+Ensure Firebase Auth and Storage are enabled
 
-## Password Reset Note
+Run the app:
 
-> If you request a password reset, please check your **Spam** folder as the reset link may be delivered there.
+bash
+Copy
+Edit
+flutter run
+Password Reset Note
+If you request a password reset, please check your Spam folder as the reset link may be delivered there.
 
-## Screenshots
+Screenshots
+🔵 Splash Screen
 
-(Add screenshots here to demonstrate key UI screens)
 
-## License
+🟣 Onboarding Screens
 
+
+🟢 Authentication
+
+
+🟡 Main Screens
+
+
+🔐 Password Reset
+
+
+License
 This project is licensed under the MIT License. Feel free to use, modify, and distribute.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

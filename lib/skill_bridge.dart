@@ -27,7 +27,7 @@ class _SkillBridgeState extends State<SkillBridge> {
   @override
   void initState() {
     super.initState();
-    _handleDynamicLink(); // استدعاء الدالة
+    _handleDynamicLink(); 
   }
 
   void _handleDynamicLink() async {

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hal_app/utilities/color_utilis.dart';
 
 class RequestsScreen extends StatefulWidget {
   const RequestsScreen({super.key});
@@ -15,47 +17,80 @@ class _RequestsScreenState extends State<RequestsScreen> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      padding: EdgeInsets.all(16),
+      padding: EdgeInsets.all(16.0.r),
       child: Form(
         key: _formKey,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'إرسال طلب تطوير مهارة',
-              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+              'Submit Skill Development Request',
+              style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 20),
-            TextFormField(
-              decoration: InputDecoration(
-                labelText: 'اسم المهارة',
-                border: OutlineInputBorder(),
-              ),
+            SizedBox(height: 20.h),
+            _buildTextField(
+              label: 'Skill Name',
               onSaved: (val) => title = val ?? '',
             ),
-            SizedBox(height: 16),
-            TextFormField(
-              maxLines: 4,
-              decoration: InputDecoration(
-                labelText: 'تفاصيل الطلب',
-                border: OutlineInputBorder(),
-              ),
+            SizedBox(height: 16.h),
+            _buildTextField(
+              label: 'Request Details',
               onSaved: (val) => description = val ?? '',
+              maxLines: 4,
             ),
-            SizedBox(height: 20),
-            ElevatedButton.icon(
-              icon: Icon(Icons.send),
-              label: Text('إرسال'),
-              onPressed: () {
-                _formKey.currentState?.save();
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('تم إرسال طلب المهارة: "$title"')),
-                );
-              },
-            )
+            SizedBox(height: 20.h),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(
+                  padding: EdgeInsets.symmetric(vertical: 16.h),
+                  backgroundColor: ColorUtility.purble,
+                  foregroundColor: Colors.white,
+                ),
+                icon: Icon(Icons.send),
+                label: Text('Submit'),
+                onPressed: _handleSubmit,
+              ),
+            ),
           ],
         ),
       ),
+    );
+  }
+
+  void _handleSubmit() {
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text('Request Submitted'),
+          content: Text('Your request for "$title" has been received.'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: Text('OK'),
+            ),
+          ],
+        ),
+      );
+    }
+  }
+
+  Widget _buildTextField({
+    required String label,
+    required Function(String?) onSaved,
+    int maxLines = 1,
+  }) {
+    return TextFormField(
+      maxLines: maxLines,
+      decoration: InputDecoration(
+        labelText: label,
+        border: OutlineInputBorder(),
+      ),
+      validator: (val) =>
+          val == null || val.trim().isEmpty ? 'Required field' : null,
+      onSaved: onSaved,
     );
   }
 }

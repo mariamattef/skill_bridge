@@ -12,9 +12,18 @@ abstract class PreferencesService {
     }
   }
 
-  static bool get isOnBoardingSeen =>
-      prefs!.getBool('isOnBoardingSeen') ?? false;
+  static bool get isOnBoardingSeen {
+    // تحقق من أن prefs ليست null قبل الوصول إليها
+    if (prefs == null) {
+      throw Exception('PreferencesService not initialized');
+    }
+    return prefs!.getBool('isOnBoardingSeen') ?? false;
+  }
 
-  static set isOnBoardingSeen(bool value) =>
-      prefs!.setBool('isOnBoardingSeen', value);
+  static set isOnBoardingSeen(bool value) {
+    if (prefs == null) {
+      throw Exception('PreferencesService not initialized');
+    }
+    prefs!.setBool('isOnBoardingSeen', value);
+  }
 }

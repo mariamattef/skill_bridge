@@ -4,9 +4,9 @@ import 'package:hal_app/screens/signin_screen.dart';
 import 'package:hal_app/screens/signup_screen.dart';
 
 import '../custom_text_button.dart';
-import '../screens/reset_password_screen.dart';
-import '../utilities/color_utilis.dart';
-import '../widgets/custom_elevated_button.dart';
+import '../../screens/reset_password_screen.dart';
+import '../../utilities/color_utilis.dart';
+import '../custom_elevated_button.dart';
 
 class AuthTemplateWidget extends StatefulWidget {
   final Future<void> Function()? onLogin;
@@ -169,6 +169,7 @@ class _AuthTemplateWidgetState extends State<AuthTemplateWidget> {
                     ),
                     Row(
                       children: [
+                      //  'atefmariam399@gmail.com'
                         Expanded(
                           child: CustomElevatedButton(
                             horizontal: 20,

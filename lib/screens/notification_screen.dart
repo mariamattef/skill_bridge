@@ -1,30 +1,68 @@
 import 'package:flutter/material.dart';
 
-
 class NotificationsScreen extends StatelessWidget {
+  final List<String> notifications = const [
+    "مرحبًا بك في SkillBridge!",
+    "تم تسجيل الدخول بنجاح!",
+  ];
+
   const NotificationsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final notifications = [
-      '🎉 مرحبًا بك في SkillBridge!',
-      '📌 لا تنسَ إكمال مهمة "Flutter"',
-      '🔥 لقد أتممت 90% من "مشروع التدريب العملي"',
-    ];
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar( // ✅ إضافة AppBar لتحسين تجربة المستخدم
+        title: const Text("Notifications"),
+        backgroundColor: Colors.deepPurple,
+        foregroundColor: Colors.white,
+        centerTitle: true,
+        elevation: 0,
+      ),
+      body: notifications.isEmpty
+          ? const Center( // ✅ عرض رسالة في حال ما في إشعارات
+              child: Text(
+                "لا يوجد إشعارات حالياً",
+                style: TextStyle(fontSize: 18, color: Colors.grey),
+              ),
+            )
+          : ListView.separated(
+              padding: const EdgeInsets.symmetric(vertical: 12),
+              itemCount: notifications.length,
+              separatorBuilder: (_, __) => const SizedBox(height: 4),
+              itemBuilder: (context, index) {
+                return _buildNotificationItem(notifications[index], context);
+              },
+            ),
+    );
+  }
 
-    return ListView.builder(
-      padding: EdgeInsets.all(16),
-      itemCount: notifications.length,
-      itemBuilder: (context, index) {
-        return Card(
-          margin: EdgeInsets.symmetric(vertical: 8),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-          child: ListTile(
-            leading: Icon(Icons.notifications, color: Colors.deepPurple),
-            title: Text(notifications[index]),
+  Widget _buildNotificationItem(String notification, BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text("تم الضغط على الإشعار: $notification"),
+            behavior: SnackBarBehavior.floating,
+            backgroundColor: Colors.deepPurple,
           ),
         );
       },
+      child: Card(
+        margin: const EdgeInsets.symmetric(horizontal: 16),
+        elevation: 2,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: ListTile(
+          leading: const Icon(Icons.notifications, color: Colors.deepPurple),
+          title: Text(
+            notification,
+            style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
+          ),
+          contentPadding: const EdgeInsets.all(16),
+        ),
+      ),
     );
   }
 }

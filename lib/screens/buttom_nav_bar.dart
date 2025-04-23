@@ -25,6 +25,13 @@ class BottomNavBarState extends State<BottomNavBar> {
     SettingsScreen(),
   ];
 
+  final List<String> _titles = [
+    'Home',
+    'Notifications',
+    'Requests',
+    'Settings',
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,7 +40,7 @@ class BottomNavBarState extends State<BottomNavBar> {
         foregroundColor: Colors.white,
         shadowColor: const Color.fromARGB(135, 145, 135, 135),
         backgroundColor: ColorUtility.purble,
-        title: Text("SkillBridge"),
+        title: Text(_titles[_selectedIndex]),
       ),
       body: _pages[_selectedIndex],
       bottomNavigationBar: CurvedNavigationBar(
@@ -43,9 +50,9 @@ class BottomNavBarState extends State<BottomNavBar> {
         height: 60,
         index: _selectedIndex,
         items: [
-          Icon(Icons.edit_note_outlined, color: Colors.white),
-          Icon(Icons.sticky_note_2, color: Colors.white),
-          Icon(Icons.search, color: Colors.white),
+          Icon(Icons.home, color: Colors.white),
+          Icon(Icons.notifications, color: Colors.white),
+          Icon(Icons.request_page, color: Colors.white),
           Icon(Icons.settings, color: Colors.white),
         ],
         onTap: (index) {
@@ -56,18 +63,4 @@ class BottomNavBarState extends State<BottomNavBar> {
       ),
     );
   }
-
-  // Widget _buildDrawer(BuildContext context, AppThemeState themeState) {
-  //   bool isDark = themeState.isDark;
-  //   Color primaryColor = themeState.primaryColor;
-  //   Color backgroundColor = isDark ? Colors.grey[900]! : Colors.white;
-  //   Color textColor = isDark ? Colors.white : Colors.black;
-  //   Color iconColor = isDark ? Colors.white : primaryColor;
-
-  //   return BuildDrawer(
-  //       backgroundColor: backgroundColor,
-  //       primaryColor: primaryColor,
-  //       textColor: textColor,
-  //       iconColor: iconColor);
-  // }
 }

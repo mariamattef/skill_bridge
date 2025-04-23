@@ -27,25 +27,77 @@ final class LoginFailed extends LoginState {
   LoginFailed(this.error);
 }
 
-final class Unauthenticated extends LoginState {}
 
-/// user Login or Not before
-class NewUser extends AuthState {}
 
-class OldUser extends AuthState {}
+final class UProfilePicUpdateLoadingState extends AuthState {}
 
-// Rest Pssword state
-final class resetPasswordStete extends AuthState {}
+final class UProfilePicUpdateSuccessState extends AuthState {
+  final String message;
+  final String? downloadUrl;
 
-final class resetPasswordLoadingStete extends resetPasswordStete {}
+  UProfilePicUpdateSuccessState(this.message, {this.downloadUrl});
+}
 
-final class resetPasswordSuccessStete extends resetPasswordStete {}
-
-final class resetPasswordFailedStete extends resetPasswordStete {
+final class UProfilePicUpdateFailedState extends AuthState {
   final String error;
 
-  resetPasswordFailedStete(this.error);
+  UProfilePicUpdateFailedState(this.error);
 }
+
+// Logout States
+final class AuthLogoutLoadingState extends AuthState {}
+
+final class AuthLogoutSuccessState extends AuthState {
+  final String message;
+
+  AuthLogoutSuccessState(this.message);
+}
+
+final class AuthLogoutFailedState extends AuthState {
+  final String error;
+
+  AuthLogoutFailedState(this.error);
+}
+
+
+final class Unauthenticated extends LoginState {}
+
+// /// user Login or Not before
+// class NewUser extends AuthState {}
+
+// class OldUser extends AuthState {}
+
+// Rest Pssword state
+final class ResetPasswordStete extends AuthState {}
+
+final class ResetPasswordLoadingStete extends ResetPasswordStete {}
+
+final class ResetPasswordSuccessStete extends ResetPasswordStete {}
+
+final class ResetPasswordFailedStete extends ResetPasswordStete {
+  final String error;
+
+  ResetPasswordFailedStete(this.error);
+}
+
+
+// Update user name 
+class UpdateUsernameLoading extends AuthState {}
+
+class UpdateUsernameSuccess extends AuthState {
+  final String newName;
+
+  UpdateUsernameSuccess(this.newName);
+}
+
+class UpdateUsernameFailed extends AuthState {
+  final String error;
+
+  UpdateUsernameFailed(this.error);
+}
+
+
+ ///////////////////////////////////////////////////
 
 /// Delete
 class AuthDeleteLoadingState extends AuthState {}
@@ -62,7 +114,7 @@ class AuthDeleteFailingState extends AuthState {
   AuthDeleteFailingState(this.error);
 }
 
-///Upload
+///Upload profile picture
 class UProPicUpdateLoadingState extends AuthState {}
 
 class UProPicUpdateSuccessState extends AuthState {

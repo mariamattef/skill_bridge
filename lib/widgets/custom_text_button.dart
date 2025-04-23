@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'utilities/color_utilis.dart';
+import '../utilities/color_utilis.dart';
 
 class CustomTextButton extends StatelessWidget {
  final String label;

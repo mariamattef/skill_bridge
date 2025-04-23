@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -57,3 +56,4 @@ class _SplashScreenState extends State<SplashScreen>
     );
   }
 }
+

@@ -1,11 +1,10 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../auth/auth_template.widget.dart';
 import '../cubits/auth_cubit/auth_cubit.dart';
-import '../custom_text_form_field.dart';
+import '../widgets/auth/auth_template.widget.dart';
+import '../widgets/custom_text_form_field.dart';
 
 class SignUpScreen extends StatefulWidget {
   static const String id = '/sign_up';
@@ -20,6 +19,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
   late TextEditingController emailController;
   late TextEditingController passwordController;
   late TextEditingController confirmPasswordController;
+  bool isPasswordVisible = false;
+  bool isConfirmPasswordVisible = false;
+
   @override
   void initState() {
     nameController = TextEditingController();
@@ -45,56 +47,72 @@ class _SignUpScreenState extends State<SignUpScreen> {
     return AuthTemplateWidget(
       onSignUp: () async {
         await context.read<AuthCubit>().signUp(
-            context: context,
-            emailController: emailController,
-            nameController: nameController,
-            passwordController: passwordController);
+          context: context,
+          emailController: emailController,
+          nameController: nameController,
+          passwordController: passwordController,
+        );
       },
       body: Column(
         children: [
           CustomTextFormField(
             controller: nameController,
-            hintText: 'Mariam Attef ',
+            hintText: 'Milad Attef ',
             labelText: 'Full Name',
             keyboardType: TextInputType.emailAddress,
           ),
-           SizedBox(
-            height: 10.h,
-          ),
+          SizedBox(height: 10.h),
           CustomTextFormField(
             controller: emailController,
             hintText: 'Demo@gmail.com',
             labelText: 'Email',
             keyboardType: TextInputType.emailAddress,
           ),
-           SizedBox(
-            height: 10.h,
-          ),
+          SizedBox(height: 10.h),
           CustomTextFormField(
             controller: passwordController,
             hintText: '***********',
             labelText: 'Password',
-            obscureText: true,
+            obscureText: !isPasswordVisible,
             keyboardType: TextInputType.visiblePassword,
+            suffix: IconButton(
+              onPressed: () {
+                setState(() {
+                  isPasswordVisible = !isPasswordVisible;
+                });
+              },
+              icon: Icon(
+                isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+              ),
+            ),
           ),
-           SizedBox(
-            height: 10.h,
-          ),
+
+          SizedBox(height: 10.h),
           CustomTextFormField(
             controller: confirmPasswordController,
             hintText: '***********',
             labelText: 'Confirm Password',
-            obscureText: true,
+            obscureText: !isConfirmPasswordVisible,
             keyboardType: TextInputType.visiblePassword,
+            suffix: IconButton(
+              onPressed: () {
+                setState(() {
+                  isConfirmPasswordVisible = !isConfirmPasswordVisible;
+                });
+              },
+              icon: Icon(
+                isConfirmPasswordVisible
+                    ? Icons.visibility
+                    : Icons.visibility_off,
+              ),
+            
+            ),
           ),
         ],
       ),
     );
   }
 }
-
-
-
 
 // import 'package:flutter/material.dart';
 // import 'package:flutter_bloc/flutter_bloc.dart';

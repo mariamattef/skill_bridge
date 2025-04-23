@@ -4,14 +4,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../utilities/color_utilis.dart';
 
 class CustomElevatedButton extends StatelessWidget {
-  void Function() onPressed;
+ final void Function() onPressed;
   // String label;
-  double? width;
-  Color? backgroundColor;
-  Color? foregroundColor;
-  Widget? child;
-  String? text;
-  double? horizontal;
+ final double? width;
+ final Color? backgroundColor;
+ final Color? foregroundColor;
+ final Widget? child;
+ final String? text;
+ final double? horizontal;
   CustomElevatedButton({
     required this.onPressed,
     this.width,

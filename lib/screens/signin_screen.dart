@@ -1,9 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../auth/auth_template.widget.dart';
+
 import '../cubits/auth_cubit/auth_cubit.dart';
-import '../custom_text_form_field.dart';
+import '../widgets/auth/auth_template.widget.dart';
+import '../widgets/custom_text_form_field.dart';
 
 class SignInScreen extends StatefulWidget {
   static const String id = '/sign_in';
@@ -17,11 +17,12 @@ class _SignInScreenState extends State<SignInScreen> {
   GlobalKey formKey = GlobalKey<FormState>();
   late TextEditingController emailController;
   late TextEditingController passwordController;
+  bool isPasswordVisible = false;
+  bool isConfirmPasswordVisible = false;
   @override
   void initState() {
     emailController = TextEditingController();
     passwordController = TextEditingController();
-
     super.initState();
   }
 
@@ -29,7 +30,6 @@ class _SignInScreenState extends State<SignInScreen> {
   void dispose() {
     emailController.dispose();
     passwordController.dispose();
-
     super.dispose();
   }
 
@@ -38,9 +38,13 @@ class _SignInScreenState extends State<SignInScreen> {
     return AuthTemplateWidget(
       onLogin: () async {
         await context.read<AuthCubit>().login(
-            context: context,
-            emailController: emailController,
-            passwordController: passwordController);
+          context: context,
+          emailController: emailController,
+          passwordController: passwordController,
+        );
+
+        // بعد نجاح تسجيل الدخول، قم بتفعيل التهيئة للإشعارات عبر Cubit
+        // context.read<FirebaseMessagingCubit>().initializeFCM();
       },
       body: Form(
         key: formKey,
@@ -53,14 +57,12 @@ class _SignInScreenState extends State<SignInScreen> {
               keyboardType: TextInputType.emailAddress,
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return 'Please enter Your Password';
+                  return 'Please enter Your Email';
                 }
                 return null;
               },
             ),
-            const SizedBox(
-              height: 20,
-            ),
+            const SizedBox(height: 20),
             CustomTextFormField(
               controller: passwordController,
               hintText: '***********',
@@ -73,6 +75,18 @@ class _SignInScreenState extends State<SignInScreen> {
                 }
                 return null;
               },
+                 suffix: IconButton(
+              onPressed: () {
+                setState(() {
+                  isConfirmPasswordVisible = !isConfirmPasswordVisible;
+                });
+              },
+              icon: Icon(
+                isConfirmPasswordVisible
+                    ? Icons.visibility
+                    : Icons.visibility_off,
+              ),)
+            
             ),
           ],
         ),

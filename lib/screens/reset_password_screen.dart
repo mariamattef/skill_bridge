@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hal_app/screens/confirm_password_screen.dart';
 
 import '../cubits/auth_cubit/auth_cubit.dart';
-import '../custom_text_form_field.dart';
+import '../widgets/custom_text_form_field.dart';
 import '../widgets/custom_elevated_button.dart';
 
 class ResetPasswrdScreen extends StatefulWidget {

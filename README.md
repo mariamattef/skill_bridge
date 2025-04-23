@@ -55,20 +55,33 @@ flutter run
 Password Reset Note
 If you request a password reset, please check your Spam folder as the reset link may be delivered there.
 
-Screenshots
-🔵 Splash Screen
+## Screenshots
 
+🔵 **Splash Screen**  
+![Splash Screen](https://i.postimg.cc/rpzSJdzr/splash.png)
 
-🟣 Onboarding Screens
+🟣 **Onboarding Screens**  
+![Onboarding 1](https://i.postimg.cc/7LC2zpQ1/on-Boarding-1.png)  
+![Onboarding 2](https://i.postimg.cc/vmp6t3pJ/on-Boarding-2.png)  
+![Onboarding 3](https://i.postimg.cc/qRy6b2rz/on-Boarding-3.png)  
+![Onboarding 4](https://i.postimg.cc/HntcHHVm/o.png)
 
+🟢 **Authentication**  
+![Login Screen](https://i.postimg.cc/jdZwFspQ/login.png)  
+![Signup Screen](https://i.postimg.cc/GmfBbXh4/signup.png)
 
-🟢 Authentication
+🟡 **Main Screens**  
+![Home Screen](https://i.postimg.cc/tRzYsq4Q/home.png)
 
+🔐 **Password Reset**  
+![Reset Password](https://i.postimg.cc/kG596dTq/reset-Pass.png)  
+![Confirm Password](https://i.postimg.cc/PxyT5qzS/confirm-Pass.png)
 
-🟡 Main Screens
+📱 **Other Screens**  
+![Notifications Screen](https://i.postimg.cc/NjKMCR7B/notification.png)  
+![Requests Screen](https://i.postimg.cc/3NrrXGxM/requests.png)  
+![Settings Screen](https://i.postimg.cc/L6b4Pnd7/settings.png)
 
-
-🔐 Password Reset
 
 
 License

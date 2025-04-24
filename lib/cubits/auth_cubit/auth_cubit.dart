@@ -8,7 +8,6 @@ import 'package:hal_app/screens/signin_screen.dart';
 import 'package:hal_app/utilities/color_utilis.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../screens/buttom_nav_bar.dart';
 import '../../services/email_service.dart';
 import '../../widgets/custom_top_error_snack_bar.dart';
@@ -18,6 +17,7 @@ part 'auth_state.dart';
 class AuthCubit extends Cubit<AuthState> {
   AuthCubit() : super(AuthInitial());
 
+  /// Logs in the user using Firebase Authentication.
   Future<void> login({
     required BuildContext context,
     required TextEditingController emailController,
@@ -66,6 +66,7 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
+  /// Creates a new user account with Firebase Authentication.
   Future<void> signUp({
     required BuildContext context,
     required TextEditingController nameController,
@@ -75,9 +76,9 @@ class AuthCubit extends Cubit<AuthState> {
     try {
       var credentials = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(
-            email: emailController.text,
-            password: passwordController.text,
-          );
+        email: emailController.text,
+        password: passwordController.text,
+      );
       if (credentials.user != null) {
         await sendWelcomeEmail(emailController.text);
 
@@ -112,6 +113,7 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
+  /// Sends a password reset email to the given email address.
   Future<bool> resetPassword({
     required BuildContext context,
     required TextEditingController emailController,
@@ -148,11 +150,11 @@ class AuthCubit extends Cubit<AuthState> {
       return false;
     } catch (e) {
       showErrorSnackBar(context, 'Something went wrong', Colors.red.shade700);
-
       return false;
     }
   }
 
+  /// Confirms the password reset using the reset code and new password.
   Future<void> confirmPasswordReset({
     required BuildContext context,
     required String oobCode,
@@ -185,9 +187,9 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
+  /// Updates the profile picture of the current user using Firebase Storage.
   Future<void> updateProfilePicture(BuildContext context) async {
     final picker = ImagePicker();
-
     final XFile? image = await picker.pickImage(source: ImageSource.gallery);
 
     if (image != null) {
@@ -223,6 +225,7 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
+  /// Returns the current logged-in user info (name, email, photo).
   Map<String, String?> getCurrentUserInfo() {
     final user = FirebaseAuth.instance.currentUser;
     return {
@@ -232,6 +235,7 @@ class AuthCubit extends Cubit<AuthState> {
     };
   }
 
+  /// Updates the display name of the current user.
   Future<void> updateUsername(String newName) async {
     emit(UpdateUsernameLoading());
 
@@ -246,51 +250,7 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  Future<void> deleteUser(BuildContext context) async {
-    emit(AuthDeleteLoadingState());
-
-    try {
-      var user = FirebaseAuth.instance.currentUser;
-      if (user == null) {
-        emit(AuthDeleteFailingState('No user logged'));
-        return;
-      }
-
-      await user.delete();
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.clear();
-
-      emit(AuthDeleteSuccessededState(' deleting success'));
-      if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('deleting success'),
-            backgroundColor: ColorUtility.purble,
-          ),
-        );
-        Navigator.pushReplacementNamed(context, SignInScreen.id);
-      }
-    } on FirebaseAuthException catch (e) {
-      emit(
-        AuthDeleteFailingState(
-          e.message ?? 'An error occurred while deleting the account.',
-        ),
-      );
-      if (context.mounted) {
-        showErrorSnackBar(
-          context,
-          e.message ?? 'Failed deleting account',
-          Colors.red.shade700,
-        );
-      }
-    } catch (e) {
-      emit(AuthDeleteFailingState('Something went wrong'));
-      if (context.mounted) {
-        showErrorSnackBar(context, 'Something went wrong', Colors.red.shade700);
-      }
-    }
-  }
-
+  /// Signs out the current user and clears shared preferences.
   Future<void> signOut(BuildContext context) async {
     emit(AuthLoading());
     try {
